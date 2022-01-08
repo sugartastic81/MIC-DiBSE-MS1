@@ -6,30 +6,33 @@
 #define STRINGMAX 30
 
 int f_get_integer(long int *number) {
+    int ret_scan;
     char v_input[STRINGMAX];
     // Einlesen eines String
-    fscanf(stdin, "%s", v_input);
+    fgets(v_input, STRINGMAX, stdin);
     fflush(stdin);
-    if(strcmp(v_input, "exit") == 0) {
+    if(strcmp(v_input, "exit\n") == 0) {
         // 1 -> Abbruch / Exit
         return 1;
     }
-    // Umwandlung des Strings in eine Dezimalzahl
-    *number = strtol(v_input, NULL, 10);
-    if( *number != 0 || v_input[0] == '0' ) {
-        // 0 -> es war eine Zahl
+    // Auslesen eines Integer aus dem gepufferten Sting
+    ret_scan = sscanf(v_input, "%li[^\n]", number);
+    if( ret_scan == 1 ){
+        // es war eine Zahl
         return 0;
+
+    }else{
+        // es war KEINE Zahl
+        return 2;
     }
-    // 2 -> es war KEINE Zahl
-    return 2;
 }
 
 int f_get_operator(char *operation) {
     char v_input[STRINGMAX];
     // Einlesen eines String
-    fscanf(stdin, "%s", v_input);
+    fgets(v_input, STRINGMAX, stdin);
     fflush(stdin);
-    if(strcmp(v_input, "exit") == 0) {
+    if(strcmp(v_input, "exit\n") == 0) {
         // 1 -> Abbruch / Exit
         return 1;
     }
