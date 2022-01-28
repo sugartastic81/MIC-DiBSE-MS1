@@ -33,9 +33,8 @@ int getcheapestpriceoutoffile(char filename[50], struct s_product *productbasket
     // liest nun bis Dateiende bzw. bis zu max_lines korrekte Zeilen ein und splittet die Tabellendaten auf die einzelnen Strukturvariablen auf
     while (fgets(v_line, 256, productfile) != NULL) {
         if (sscanf(v_line, "%31[^;];%31[^;];%f;%f", product_name,product_market, &product_weight, &product_price) == 4 ) {
-            product_priceperentity = product_price/product_weight;
             for( int i = 0; i < numofproducts; i++ ) {
-                if( strcmp(productbasket[i].product_name, product_name) == 0  && (productbasket[i].product_priceperentity > product_priceperentity || strlen(productbasket[i].product_market) < 2) ) {
+                if( strcmp(productbasket[i].product_name, product_name) == 0  && (productbasket[i].product_priceperentity >  product_price/product_weight || strlen(productbasket[i].product_market) < 2) ) {
                     strcpy(productbasket[i].product_name, product_name);
                     strcpy(productbasket[i].product_market, product_market);
                     productbasket[i].product_priceperentity = product_price/product_weight;
